@@ -1,8 +1,10 @@
 <?php
 use yii\widgets\LinkPager;
-use yii\grid\GridView;
+use yii\grid\ListView;
 use yii\helpers\Url;
 /* @var $this yii\web\View */
+/* @var $searchModel app\models\ProductsSearch */
+/* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'NomātPrieks!';
 ?>
@@ -10,11 +12,9 @@ $this->title = 'NomātPrieks!';
 <html>
 <head>
     <style>
+        h1 {text-align: center;}
 
-        .main {
-            margin-left: 20px; /* Same width as the sidebar + left position in px */
-            font-size: 28px; /* Increased text to enable scrolling */
-            padding: 30px 10px;
+
         }
         .topnav .search-container {
             float: right;
@@ -55,18 +55,10 @@ $this->title = 'NomātPrieks!';
 </head>
 
 
+<h1 class="topnav">We are offering:</h1>
+
 <div class="topnav">
-    <div class="search-container">
-        <form action="/action_page.php">
-            <input type="text" name="search" placeholder="Search..">
-        </form>
-    </div>
-</div>
-
-<h1 class="title center-block">We are offering:</h1>
-
-<div class="main">
-    <div class="row">
+    <div class="flex-column">
 
         <?php
         echo \yii\widgets\ListView::widget([

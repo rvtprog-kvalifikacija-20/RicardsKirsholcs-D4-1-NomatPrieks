@@ -2,6 +2,7 @@
 namespace frontend\controllers;
 
 // use backend\models\Products;
+use app\models\ProductsSearch;
 use common\models\LoginForm;
 use common\models\User;
 use frontend\models\ContactForm;
@@ -19,6 +20,7 @@ use yii\filters\VerbFilter;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\helpers\ArrayHelper;
+use yii\web\NotFoundHttpException;
 
 /**
  * Site controller
@@ -80,6 +82,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+
         $products = new ActiveDataProvider(['query' => Products::find()->where(['avalibility' => 1])->orderBy('created_at DESC'),
             'pagination' => ['pageSize' => 10],
         ]);
@@ -308,5 +311,16 @@ class SiteController extends Controller
         return $this->render('resendVerificationEmail', [
             'model' => $model,
         ]);
+    }
+
+    protected function findModel($id)
+    {
+        $model = $this->findModel($id);
+
+        if (($model = Products::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }
